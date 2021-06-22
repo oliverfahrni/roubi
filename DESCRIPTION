@@ -1,7 +1,7 @@
 Package: roubi
 Type: Package
 Title: Personal R Package
-Version: 0.1.0
+Version: 0.1.1
 Author: Oubi Fahrni
 Encoding: UTF-8
 RoxygenNote: 7.1.1

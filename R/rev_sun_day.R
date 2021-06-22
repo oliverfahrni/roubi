@@ -1,54 +1,54 @@
 #' rev_sun_day
 #'
-#' The ouput of the function is a tibble given the suns every minute position and if there is direct sunlight (obstructed by mountains/hills)
+#' The ouput of the function is a tibble given the suns every minute position and if there is direct sunlight (obstructed by mountains/hills). Currently does not work on arm because of elevatr which uses sf.
 #'
 #' @param location: need to be a vector = c(long, lat) according to WGS 84,
 #' @param day_of_year is the # of day in the year, 1 = 1. January,
-#' @param ray_length is radius of interest, arbitrary 10km,
-#' @param ray_intervals is the distance between point on one ray to check, arbitrary 100m
+#' @param ray_length is radius of interest, arbitrary 10km (m)
+#' @param ray_intervals is the distance between point on one ray to check, arbitrary 100m (m)
 #' @param zoom_level is the accuracy of the raster to get elevation from a point. 15 is the highest but it is very slow.
 #' @return tbl_sun_shadow is a tibble
-#' @import tidyverse solrad elevatr
+#' @import tidyverse solrad elevatr rgdal
 #' @export
 rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_level){
-#
-#   # -------------------
-#   # inputs for construction
-#   # day of the year
-#   day_of_year <- 60
-#
-#   # specify radius of interest = raylength, arbitrary 10km
-#   ray_length = 10000
-#
-#   # specify number of points to check on an ray; interval = 100m
-#   ray_intervals = 100
-#
-#   # zoom level of get_aws_points()
-#   zoom_level <- 12
-#   # https://wiki.openstreetmap.org/wiki/Zoom_levels
-#
-#   # example locations
-#   # saas fee talstation alpin express
-#   # location <- c(7.928178, 46.105742)
-#
-#   # saas fee nördlicher dorfrand
-#   # location <- c(7.929837, 46.115586)
-#
-#   # leukerbad therme
-#   location <- c(7.625979, 46.379161)
-#   #
-#   # # saas fee mitte
-#   # # location <- c(7.926368, 46.108584)
-#   #
-#   # # zermatt
-#   # location <- c(7.7494, 46.022227)
-#   #
-#   # # bern, waffenweg
-#   # # location <- c(7.4519618997948855, 46.96146013632291)
-#   #
-#   # # schloss courgevaux
-#   # # location <- c(7.111908, 46.905712)
-#
+
+  # # -------------------
+  # # inputs for construction
+  # # day of the year
+  # day_of_year <- 60
+  #
+  # # specify radius of interest = raylength, arbitrary 10km
+  # ray_length = 10000
+  #
+  # # specify number of points to check on an ray; interval = 100m
+  # ray_intervals = 100
+  #
+  # # zoom level of get_aws_points()
+  # zoom_level <- 12
+  # # https://wiki.openstreetmap.org/wiki/Zoom_levels
+  #
+  # # example locations
+  # # saas fee talstation alpin express
+  # # location <- c(7.928178, 46.105742)
+  #
+  # # saas fee nördlicher dorfrand
+  # # location <- c(7.929837, 46.115586)
+  #
+  # # leukerbad therme
+  # location <- c(7.625979, 46.379161)
+  # #
+  # # # saas fee mitte
+  # # # location <- c(7.926368, 46.108584)
+  # #
+  # # # zermatt
+  # # location <- c(7.7494, 46.022227)
+  # #
+  # # # bern, waffenweg
+  # # # location <- c(7.4519618997948855, 46.96146013632291)
+  # #
+  # # # schloss courgevaux
+  # # # location <- c(7.111908, 46.905712)
+  #
 
 
   # ------------------- Function

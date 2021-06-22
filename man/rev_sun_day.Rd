@@ -9,9 +9,9 @@ rev_sun_day(location, day_of_year, ray_length, ray_intervals, zoom_level)
 \arguments{
 \item{day_of_year}{is the # of day in the year, 1 = 1. January,}
 
-\item{ray_length}{is radius of interest, arbitrary 10km,}
+\item{ray_length}{is radius of interest, arbitrary 10km (m)}
 
-\item{ray_intervals}{is the distance between point on one ray to check, arbitrary 100m}
+\item{ray_intervals}{is the distance between point on one ray to check, arbitrary 100m (m)}
 
 \item{zoom_level}{is the accuracy of the raster to get elevation from a point. 15 is the highest but it is very slow.}
 
@@ -21,5 +21,5 @@ rev_sun_day(location, day_of_year, ray_length, ray_intervals, zoom_level)
 tbl_sun_shadow is a tibble
 }
 \description{
-The ouput of the function is a tibble given the suns every minute position and if there is direct sunlight (obstructed by mountains/hills)
+The ouput of the function is a tibble given the suns every minute position and if there is direct sunlight (obstructed by mountains/hills). Currently does not work on arm because of elevatr which uses sf.
 }

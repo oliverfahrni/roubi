@@ -2,5 +2,6 @@
 
 export(rev_sun_day)
 import(elevatr)
+import(rgdal)
 import(solrad)
 import(tidyverse)

@@ -3,7 +3,6 @@
 export(rev_gwr)
 export(rev_sun_day)
 export(rob_git_token)
-import("")
 import(elevatr)
 import(rgdal)
 import(rvest)

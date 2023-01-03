@@ -8,6 +8,8 @@
 #' @param ray_intervals is the distance between point on one ray to check, arbitrary 100m (m)
 #' @param zoom_level is the accuracy of the raster to get elevation from a point. 15 is the highest but it is very slow.
 #' @return tbl_sun_shadow is a tibble
+#' @import tidyverse solrad elevatr rgdal
+#' @export
 #' @examples
 #' Example on how to graph the retrieved data
 #'
@@ -30,8 +32,7 @@ data %>% filter(alpha > 0) %>%
                minor_breaks = time_hour_minor,
                limits = c(min(time_hour_minor), max(time_hour_minor))) +
   scale_y_continuous(sec.axis = sec_axis(~ . *30, name = "Alpha (rot)"))
-#' @import tidyverse solrad elevatr rgdal
-#' @export
+
 rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_level){
 
   # # -------------------

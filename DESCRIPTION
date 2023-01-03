@@ -1,9 +1,8 @@
 Package: roubi
 Type: Package
 Title: Personal R Package
-Version: 0.1.1
+Version: 0.1.2
 Author: Oubi Fahrni
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Imports: tidyverse, readxl, lubridate
-

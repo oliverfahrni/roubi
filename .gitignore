@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+roubi.Rcheck/
+roubi*.tar.gz
+roubi*.tgz

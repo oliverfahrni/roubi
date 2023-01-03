@@ -5,5 +5,5 @@ Version: 0.1.1
 Author: Oubi Fahrni
 Encoding: UTF-8
 RoxygenNote: 7.1.1
-Imports: tidyverse, tidymodels, rvest, solrad, elevatr, rgdal
+Imports: tidyverse, readxl, lubridate
 

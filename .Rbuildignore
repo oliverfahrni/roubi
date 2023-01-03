@@ -1,3 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 notebook*
+^roubi\.Rcheck$
+^roubi.*\.tar\.gz$
+^roubi.*\.tgz$

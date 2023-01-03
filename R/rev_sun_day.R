@@ -8,6 +8,28 @@
 #' @param ray_intervals is the distance between point on one ray to check, arbitrary 100m (m)
 #' @param zoom_level is the accuracy of the raster to get elevation from a point. 15 is the highest but it is very slow.
 #' @return tbl_sun_shadow is a tibble
+#' @examples
+#' Example on how to graph the retrieved data
+#'
+data <- rev_sun_day(c(7.629984, 46.378672), 180, 1000, 10, 12)
+
+hour_major <- as_tibble(seq(1:11))
+time_hour_major <- c(hms::as.hms(hour_major$value*60*60*2))
+
+hour_minor <- as_tibble(seq(1:24))
+time_hour_minor <- c(hms::as.hms(hour_minor$value*60*60))
+
+data %>% filter(alpha > 0) %>%
+  ggplot() +
+  geom_line(aes(x = time, y = sun_in_min), size = 2) +
+  geom_line(aes(x = time, y = alpha/30), size = 2, color = "red") +
+  labs(title = "Tagesverlauf der Sonne in Leukerbad Therme am 3. Januar", x = "Uhrzeit (Winterzeit)", y = "Schatten  -  Sonne (schwarz)") +
+  theme_minimal() +
+  # geom_hline(yintercept = 0.5) +
+  scale_x_time(breaks = time_hour_major,
+               minor_breaks = time_hour_minor,
+               limits = c(min(time_hour_minor), max(time_hour_minor))) +
+  scale_y_continuous(sec.axis = sec_axis(~ . *30, name = "Alpha (rot)"))
 #' @import tidyverse solrad elevatr rgdal
 #' @export
 rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_level){
@@ -162,12 +184,6 @@ rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_l
   min <- as_tibble(seq(1:nrow(rays_sun_min)))
   time <- as_tibble(hms::as.hms(min$value*60))
 
-  hour_major <- as_tibble(seq(1:11))
-  time_hour_major <- c(hms::as.hms(hour_major$value*60*60*2))
-
-  hour_minor <- as_tibble(seq(1:24))
-  time_hour_minor <- c(hms::as.hms(hour_minor$value*60*60))
-
 
   rays_sun_min <- rays_sun_min %>%
     mutate(time = time$value,
@@ -177,19 +193,6 @@ rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_l
 
   return(rays_sun_min)
 
-# sum(rays_sun_min$sun_in_min)
-# # 211 zermatt
-#   rm(min, time)
-#   #
-#   rays_sun_min %>% filter(alpha > 0) %>%
-#     ggplot() +
-#     geom_line(aes(x = time, y = sun_in_min), size = 2) +
-#     geom_line(aes(x = time, y = alpha/30), size = 2, color = "red") +
-#     labs(title = "Tagesverlauf der Sonne in Leukerbad Therme am 1. März", x = "Uhrzeit (Winterzeit)", y = "Schatten  -  Sonne (schwarz)") +
-#     theme_minimal() +
-#     # geom_hline(yintercept = 0.5) +
-#     scale_x_time(breaks = time_hour_major,
-#                  minor_breaks = time_hour_minor) +
-#     scale_y_continuous(sec.axis = sec_axis(~ . *30, name = "Alpha (rot)"))
+
 
 }

@@ -4,9 +4,17 @@
 \alias{rob_rev_sun_day}
 \title{rob_rev_sun_day}
 \usage{
-rob_rev_sun_day(location, day_of_year, ray_length, ray_intervals, zoom_level)
+rob_rev_sun_day(
+  location = c(46.6422934643684, 7.44387435795941),
+  day_of_year = 37,
+  ray_length = 10000,
+  ray_intervals = 100,
+  zoom_level = 12
+)
 }
 \arguments{
+\item{location}{need to be a vector = c(lat, long) according to WGS 84,}
+
 \item{day_of_year}{is the # of day in the year, 1 = 1. January,}
 
 \item{ray_length}{is radius of interest, arbitrary 10km (m)}
@@ -14,8 +22,6 @@ rob_rev_sun_day(location, day_of_year, ray_length, ray_intervals, zoom_level)
 \item{ray_intervals}{is the distance between point on one ray to check, arbitrary 100m (m)}
 
 \item{zoom_level}{is the accuracy of the raster to get elevation from a point. 15 is the highest but it is very slow.}
-
-\item{location:}{need to be a vector = c(long, lat) according to WGS 84,}
 }
 \value{
 tbl_sun_shadow is a tibble

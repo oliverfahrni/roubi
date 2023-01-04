@@ -15,7 +15,7 @@ rob_map_wgs_lv03_y(lat, lon)
 y value of lv03 coordinate
 }
 \description{
-rob_map_wgs_lv03_y computes the y value of lv03
+rob_map_wgs_lv03_y computes the x value of lv03
 Use in combination with rob_map_wgs_lv03_x
 }
 \details{

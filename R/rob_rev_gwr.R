@@ -1,6 +1,6 @@
-#' rev_gwr
+#' rob_rev_gwr
 #'
-#' The ouput of the function is a tibble with the buildings caracterictics from housing-stat.ch. Either use egid number or the postal address.
+#' The ouput of the function is a tibble with the buildings characteristics from housing-stat.ch. Either use egid number or the postal address.
 #'
 #' @param egid: the egid number of the building
 #' @param street the street name of the building (not yet available)
@@ -13,7 +13,7 @@
 
 
 # function ----------------------------------------------------------------
-rev_gwr <- function(egid) {
+rob_rev_gwr <- function(egid) {
 # d_egid <- read_csv2("BE.csv")
 # egid <- d_egid %>%
 #   filter(STRNAME == street & DEINR == street_nr & DPLZ4 == plz) %>%

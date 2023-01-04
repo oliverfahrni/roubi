@@ -4,12 +4,12 @@
 \alias{rob_map_lv03_wgs_lon}
 \title{rob_map_lv03_wgs_lon}
 \usage{
-rob_map_lv03_wgs_lon(y, x)
+rob_map_lv03_wgs_lon(x, y)
 }
 \arguments{
-\item{y:}{input coordinate y of lv03}
-
 \item{x:}{input coordinate x of lv03}
+
+\item{y:}{input coordinate y of lv03}
 }
 \value{
 longitude value of wgs84 coordinate

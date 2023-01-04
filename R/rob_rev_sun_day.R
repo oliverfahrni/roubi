@@ -1,4 +1,4 @@
-#' rev_sun_day
+#' rob_rev_sun_day
 #'
 #' The ouput of the function is a tibble given the suns every minute position and if there is direct sunlight (obstructed by mountains/hills). Currently does not work on arm because of elevatr which uses sf.
 #'
@@ -12,7 +12,7 @@
 #' @export
 #' @examples
 #' Example on how to graph the retrieved data
-#' data <- rev_sun_day(c(7.629984, 46.378672), 180, 1000, 10, 12)
+#' data <- rob_rev_sun_day(c(7.629984, 46.378672), 180, 1000, 10, 12)
 #' hour_major <- as_tibble(seq(1:11))
 #' time_hour_major <- c(hms::as.hms(hour_major$value*60*60*2))
 #'
@@ -29,7 +29,7 @@
 #'  limits = c(min(time_hour_minor), max(time_hour_minor))) +
 #'  scale_y_continuous(sec.axis = sec_axis(~ . *30, name = "Alpha (rot)"))
 
-rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_level){
+rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_level){
 
   # # -------------------
   # # inputs for construction

@@ -15,8 +15,8 @@ rob_map_wgs_lv03_x(lat, lon)
 x value of lv03 coordinate
 }
 \description{
-rob_map_wgs_lv03_x computes the x value of lv03
-Use in combination with rob_map_wgs_lv03_y
+rob_map_wgs_lv03_x computes the y value of lv03
+Use in combination with rob_map_wgs_lv03_x
 }
 \details{
 For converting lv03 to wgs84 and vice-versa

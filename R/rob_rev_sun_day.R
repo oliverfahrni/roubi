@@ -30,31 +30,31 @@
 #'  scale_y_continuous(sec.axis = sec_axis(~ . *30, name = "Alpha (rot)"))
 
 rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_level){
-
-  # -------------------
-  # inputs for construction
-  # day of the year
-  day_of_year <- 60
-
-  # specify radius of interest = raylength, arbitrary 10km
-  ray_length = 10000
-
-  # specify number of points to check on an ray; interval = 100m
-  ray_intervals = 100
-
-  # zoom level of get_aws_points()
-  zoom_level <- 12
-  # https://wiki.openstreetmap.org/wiki/Zoom_levels
-
-  # example locations
-  # saas fee talstation alpin express
-  # location <- c(46.105742, 7.928178)
-
-  # saas fee nördlicher dorfrand
-  # location <- c(46.115586, 7.929837)
-
-  # leukerbad therme
-  location <- c(46.379161, 7.625979)
+#
+#   # -------------------
+#   # inputs for construction
+#   # day of the year
+#   day_of_year <- 60
+#
+#   # specify radius of interest = raylength, arbitrary 10km
+#   ray_length = 10000
+#
+#   # specify number of points to check on an ray; interval = 100m
+#   ray_intervals = 100
+#
+#   # zoom level of get_aws_points()
+#   zoom_level <- 12
+#   # https://wiki.openstreetmap.org/wiki/Zoom_levels
+#
+#   # example locations
+#   # saas fee talstation alpin express
+#   # location <- c(46.105742, 7.928178)
+#
+#   # saas fee nördlicher dorfrand
+#   # location <- c(46.115586, 7.929837)
+#
+#   # leukerbad therme
+#   location <- c(46.379161, 7.625979)
   #
   # # saas fee mitte
   # # location <- c(46.108584, 7.926368)

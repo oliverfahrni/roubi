@@ -1,6 +1,6 @@
 #' rob_map_wgs_lv03_y
 #'
-#' rob_map_wgs_lv03_y computes the y value of lv03
+#' rob_map_wgs_lv03_y computes the x value of lv03
 #' Use in combination with rob_map_wgs_lv03_x
 #'
 #' For converting lv03 to wgs84 and vice-versa
@@ -17,11 +17,11 @@ rob_map_wgs_lv03_y <- function(lat, lon){
   lon <- rob_map_dezsex(lon)
   lat_aux <- (lat - 169028.66)/10000
   lon_aux <- (lon - 26782.5)/10000
-  y <- {600072.37 +
-      211455.93 * lon_aux -
-      10938.51 * lon_aux * lat_aux -
-      0.36 * lon_aux * (lat_aux^2) -
-      44.54 * (lon_aux^3)}
+  y <- {200147.07 +
+      308807.95 * lat_aux +
+      3745.25 * (lon_aux^2) +
+      76.63 * (lat_aux^2) -
+      194.56 * (lon_aux^2) * lat_aux +
+      119.79 * (lat_aux^3)}
   return(y)
 }
-

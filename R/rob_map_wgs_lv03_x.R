@@ -13,8 +13,8 @@
 
 
 rob_map_wgs_lv03_x <- function(lat, lon){
-  lat <- dec_to_sex(lat)
-  lon <- dec_to_sex(lon)
+  lat <- rob_map_dezsex(lat)
+  lon <- rob_map_dezsex(lon)
   lat_aux <- (lat - 169028.66)/10000
   lon_aux <- (lon - 26782.5)/10000
   x <- {200147.07 +

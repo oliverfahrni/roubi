@@ -2,7 +2,7 @@
 #'
 #' The ouput of the function is a tibble given the suns every minute position and if there is direct sunlight (obstructed by mountains/hills). Currently does not work on arm because of elevatr which uses sf.
 #'
-#' @param location: need to be a vector = c(long, lat) according to WGS 84,
+#' @param location need to be a vector = c(lat, long) according to WGS 84,
 #' @param day_of_year is the # of day in the year, 1 = 1. January,
 #' @param ray_length is radius of interest, arbitrary 10km (m)
 #' @param ray_intervals is the distance between point on one ray to check, arbitrary 100m (m)
@@ -31,43 +31,41 @@
 
 rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zoom_level){
 
-  # # -------------------
-  # # inputs for construction
-  # # day of the year
-  # day_of_year <- 60
+  # -------------------
+  # inputs for construction
+  # day of the year
+  day_of_year <- 60
+
+  # specify radius of interest = raylength, arbitrary 10km
+  ray_length = 10000
+
+  # specify number of points to check on an ray; interval = 100m
+  ray_intervals = 100
+
+  # zoom level of get_aws_points()
+  zoom_level <- 12
+  # https://wiki.openstreetmap.org/wiki/Zoom_levels
+
+  # example locations
+  # saas fee talstation alpin express
+  # location <- c(46.105742, 7.928178)
+
+  # saas fee nördlicher dorfrand
+  # location <- c(46.115586, 7.929837)
+
+  # leukerbad therme
+  location <- c(46.379161, 7.625979)
   #
-  # # specify radius of interest = raylength, arbitrary 10km
-  # ray_length = 10000
+  # # saas fee mitte
+  # # location <- c(46.108584, 7.926368)
   #
-  # # specify number of points to check on an ray; interval = 100m
-  # ray_intervals = 100
+  # # zermatt
+  # location <- c(46.022227, 7.7494)
   #
-  # # zoom level of get_aws_points()
-  # zoom_level <- 12
-  # # https://wiki.openstreetmap.org/wiki/Zoom_levels
   #
-  # # example locations
-  # # saas fee talstation alpin express
-  # # location <- c(7.928178, 46.105742)
-  #
-  # # saas fee nördlicher dorfrand
-  # # location <- c(7.929837, 46.115586)
-  #
-  # # leukerbad therme
-  # location <- c(7.625979, 46.379161)
-  # #
-  # # # saas fee mitte
-  # # # location <- c(7.926368, 46.108584)
-  # #
-  # # # zermatt
-  # # location <- c(7.7494, 46.022227)
-  # #
-  # # # bern, waffenweg
-  # # # location <- c(7.4519618997948855, 46.96146013632291)
-  # #
-  # # # schloss courgevaux
-  # # # location <- c(7.111908, 46.905712)
-  #
+  # # schloss courgevaux
+  # # location <- c(46.905712, 7.111908)
+
 
 
   # ------------------- Function
@@ -81,18 +79,18 @@ rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zo
   DOY <- seq(day_0, day_0+1-(1/1440), 1/1440)
 
   # altitude angle for each minute on day
-  alpha <- as_tibble(solrad::Altitude(DOY, Lat = coord_0[2], Lon=coord_0[1], SLon=coord_0[1], DS=0))
+  alpha <- as_tibble(solrad::Altitude(DOY, Lat = coord_0[1], Lon=coord_0[2], SLon=coord_0[2], DS=0))
   # plot(DOY, t(alpha))
 
   # azimuth angle for each minute on day
-  azimuth <- as_tibble(solrad::Azimuth(DOY, Lat = coord_0[2], Lon=coord_0[1], SLon=coord_0[1], DS=0))
+  azimuth <- as_tibble(solrad::Azimuth(DOY, Lat = coord_0[1], Lon=coord_0[2], SLon=coord_0[2], DS=0))
   # plot(DOY, t(azimuth))
 
   # specify number of points to check for one ray
   ray_points = ray_length/ray_intervals
 
   # define ratio km to degree (wgs84) for specific location
-  long_1 <- 111300 * cos(coord_0[2])
+  long_1 <- 111300 * cos(coord_0[1])
   lat_1 <- 111300
 
   # some calibration
@@ -100,8 +98,10 @@ rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zo
 
   # get elevation of location
   # to get elevation --> needs to be a data frame
-  coord_0_elev <- elevatr::get_aws_points(as.data.frame(t(coord_0)), prj = prj_dd, z = zoom_level)
+  coord_0_elev <- elevatr::get_aws_points(data.frame(lon = coord_0[2], lat = coord_0[1]), prj = prj_dd, z = zoom_level)
   coord_0_elev <- coord_0_elev[[1]]$elevation
+
+
 
 
   # get "sun-rays" for each hour ("flat", only horizontal value)
@@ -117,8 +117,8 @@ rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zo
   ray_end <- azimuth[nrow(azimuth),]
   rays = tibble(azimut = azimuth$value,
                 alpha = alpha$value,
-                long = coord_0[1],
-                lat = coord_0[2]) %>%
+                lat = coord_0[1],
+                long = coord_0[2]) %>%
     gather(key = "key",
            value = "value",
            3:4) %>%
@@ -152,7 +152,7 @@ rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zo
 
 
   rays_points <- rays %>%
-    select(long, lat)
+    select(lat, long)
   rays_points <- as.data.frame(rays_points)
 
   aux <- elevatr::get_aws_points(rays_points, prj = prj_dd, z = zoom_level)
@@ -162,8 +162,8 @@ rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zo
   # get inclination angle of sun alpha
   rays_sun_check <- rays_elev %>%
     mutate(elevation_diff = value - coord_0_elev,
-           long_diff = long - coord_0[1],
-           lat_diff = lat - coord_0[2],
+           lat_diff = lat - coord_0[1],
+           long_diff = long - coord_0[2],
            distance_horizontal = sqrt((long_diff*long_1)^2 + (lat_diff*lat_1)^2),
            a_tan = atan(elevation_diff/distance_horizontal),
            sun = ifelse(alpha < 0, 0, ifelse(alpha < a_tan, 0, 1)))
@@ -189,7 +189,5 @@ rob_rev_sun_day <- function(location, day_of_year, ray_length, ray_intervals, zo
     select(time, azimut, alpha, sun_in_min)
 
   return(rays_sun_min)
-
-
 
 }

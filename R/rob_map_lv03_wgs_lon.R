@@ -15,12 +15,11 @@
 rob_map_lv03_wgs_lon <- function (y, x){
   y_aux <- (y - 600000)/1000000
   x_aux <- (x - 200000)/1000000
-  lat <- {16.9023892 +
-      3.238272 * x_aux -
-      0.270978 * (y_aux^2) -
-      0.002528 * (x_aux^2) -
-      0.0447   * (y_aux^2) * x_aux -
-      0.0140   * (x_aux^3)}
-  lat <- lat * 100/36
-  return(lat)
+  lon <- {2.6779094 +
+      4.728982 * y_aux +
+      0.791484 * y_aux * x_aux +
+      0.1306   * y_aux * (x_aux^2) -
+      0.0436   * (y_aux^3)}
+  lon <- lon * 100/36
+  return(lon)
 }
